@@ -7,14 +7,16 @@ public class Company {
     int debit = 0;
     int credit = 0;
     TaxSystem taxSystem;
-    public Company(String title,TaxSystem taxSystem){
+
+    public Company(String title, TaxSystem taxSystem) {
         this.title = title;
         this.taxSystem = taxSystem;
     }
-    public void shiftMoney(int amount){
-        if (amount>0){
+
+    public void shiftMoney(int amount) {
+        if (amount > 0) {
             debit += amount;
-        } else if (amount<0) {
+        } else if (amount < 0) {
             credit += Math.abs(amount);
         }
     }
@@ -23,9 +25,9 @@ public class Company {
         this.taxSystem = taxSystem;
     }
 
-    public void payTaxes(){
-        int tax = taxSystem.calcTaxFor(debit,credit);
-        System.out.printf("Компания %s уплатила налог в размере: %d руб",title,tax);
+    public void payTaxes() {
+        int tax = taxSystem.calcTaxFor(debit, credit);
+        System.out.printf("Компания %s уплатила налог в размере: %d руб", title, tax);
         debit = 0;
         credit = 0;
     }
@@ -33,8 +35,8 @@ public class Company {
     public int applyDeals(Deal[] deals) {
 
         for (Deal deal : deals) {
-            debit += deal.debitChange;
-            credit += deal.creditChange;
+            debit += deal.getDebitChange();
+            credit += deal.getCreditChange();
         }
 
         int profitBeforeTax = debit - credit;
